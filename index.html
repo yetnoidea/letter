@@ -20,6 +20,7 @@
 		width: 28em;
   	line-height: 1.8;
   	position: absolute;
+  	z-index: 1000;
   	top: 4em;
   	bottom: 4em;
   	right:4em;
@@ -31,6 +32,26 @@
 	body>div.letter>p>span {
 		border-bottom: 1px dotted #ddd;
 	}
+	@keyframes twinkling {
+		0% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+	body>div.animated {
+		width: 0.5em;
+		height: 0.5em;
+		transform: rotate(45deg);
+		position: absolute;
+		background: red;
+		animation:  1s infinite twinkling;
+		z-index: 1;
+	}
 </style>
 </head>
  
@@ -40,12 +61,60 @@
 		<span>这份小小的礼物，一是想安慰安慰你这个小傻瓜，自己一直喜欢和支持的战队功亏一篑而遗憾落败的那种失落和难过，我是能体会到的，不过，下次我还是会继续奶的哈哈；二是想做点微小的工作，那边是闺蜜在狂秀恩爱(珍爱生命，远离闺蜜，哈哈)，这边则是蠢蠢钝钝的男友总是慢半拍(好气呀)，所以思来想去，思前想后，以至于辗转反侧，夜不能寝，寝不能寐，寐不能一觉到天明，终于灵光一闪，让我想到了这个俗的不能再俗的方法，算是弥补一下我之前的一些做的不足的地方，哪怕只是弥补了一丁点，我也会一直这样弥补下去。</span>
 	</p>
 	<p>
-		<span>这份小小的礼物，由于时间紧迫，只能仓促完成，所以做的比较简单粗糙。本来还想做的漂亮点，起码要加点炫酷的动画，想想还是算了，万一把你的眼睛闪瞎了怎么办呢，我会好心疼的哈哈。你不许不喜欢哦，如果真的不喜欢，那你跟我说一句想我了，那我就知道你真的不喜欢了。</span>
+		<span>这份小小的礼物，由于时间紧迫，只能仓促完成，所以做的比较简单粗糙。本来还想做的漂亮点，起码要加点炫酷的动画，想想还是算了，万一把你的眼睛闪瞎了怎么办呢，我会心疼死的哈哈。你不许不喜欢哦，如果真的不喜欢，那你跟我说一句想我了，那我就知道你真的不喜欢了。</span>
 	</p>
 	<p>
 		<span>这份小小的礼物，送给我最爱的宝宝，徐雨静。</span>
 	</p>
 </div>
+
+<script type="text/javascript">
+	var elements = createElements(16);
+
+	showup(elements);
+	twinkle(elements);
+
+	function twinkle(elements) {
+		setInterval(function () {
+			elements.forEach(function (element, i) {
+				randomPos(element);
+			});
+		}, 1000);
+	}
+
+	function showup (elements) {
+		var delay = 1000 / elements.length;
+		elements.forEach(function (element, i) {
+			setTimeout(function () {
+				document.body.appendChild(element);
+				randomPos(element);
+			}, (i + 1) * delay);
+		});
+	}
+
+	function randomPos(element) {
+		// var x = (Math.random() * 100 | 0) + '%';;
+		// var y = (Math.random() * 100 | 0) + '%';;
+		// element.style.transform = 'translate(' + x + ',' + y + ')';
+		element.style.left = (Math.random() * 100 | 0) + '%';
+		element.style.top = (Math.random() * 100 | 0) + '%';
+	}
+
+	function createElements(n) {
+		var elements = [];
+		for (var i = 0; i < n; i++) {
+			elements.push(createElement());
+		}
+		return elements;
+	}
+
+	function createElement() {
+		var div = document.createElement('div');
+		div.classList.add('animated');
+		return div;
+	}
+</script>
+
 </body>
  
 </html>
