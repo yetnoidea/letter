@@ -72,15 +72,6 @@
 	var elements = createElements(16);
 
 	showup(elements);
-	twinkle(elements);
-
-	function twinkle(elements) {
-		setInterval(function () {
-			elements.forEach(function (element, i) {
-				randomPos(element);
-			});
-		}, 1000);
-	}
 
 	function showup (elements) {
 		var delay = 1000 / elements.length;
@@ -88,6 +79,9 @@
 			setTimeout(function () {
 				document.body.appendChild(element);
 				randomPos(element);
+				setInterval(function () {
+					randomPos(element);
+				}, 1000);
 			}, (i + 1) * delay);
 		});
 	}
